@@ -1,12 +1,13 @@
-import Link from 'next/link';
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import utilStyles from '../styles/utils.module.css';
+import Link from 'next/link';
+import { GetStaticProps } from 'next/types';
 import Date from '../components/date';
 import { getSortedPostsData } from '../lib/posts';
+import styles from '../styles/Home.module.css';
+import utilStyles from '../styles/utils.module.css';
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = () => {
   const allPostsData = getSortedPostsData();
   return {
     props: {
@@ -15,7 +16,15 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ allPostsData }) {
+export default function Home({
+  allPostsData
+}: {
+  allPostsData: {
+    date: string
+    title: string
+    id: string
+  }[]
+}) {
   return (
     <div className={styles.container}>
       <Head>
